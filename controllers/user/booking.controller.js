@@ -1,5 +1,5 @@
 import adjustTime from "../../utils/adjustTime.js";
-import razorpay from "../../config/razorpay.js";
+// import razorpay from "../../config/razorpay.js";
 import crypto from "crypto";
 import Booking from "../../models/booking.model.js";
 import TimeSlot from "../../models/timeSlot.model.js";
@@ -33,11 +33,18 @@ export const createOrder = async (req, res) => {
       currency: "INR",
       receipt: `receipt${Date.now()}`,
     };
-    const order = await razorpay.orders.create(options);
+    // const order = await razorpay.orders.create(options);
 
     console.log("order ", order);
 
-    return res.status(200).json({ order, user });
+    return res.status(200).json({
+      orderId: "order_0011",
+      amount: "100",
+      currency: `INR`,
+      name: user.name,
+      email: user.email,
+      contact: user.contact || "Not provided",
+    });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
